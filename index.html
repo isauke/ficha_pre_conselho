@@ -1,0 +1,2051 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Portal de participação estudantil do Conselho de Classe do IFPI Campus Angical.">
+
+    <title>Conselho de Classe | IFPI</title>
+
+    <style>
+        /* ======================================
+           1. CONFIGURAÇÕES
+        ====================================== */
+
+        :root {
+            --verde: #00843D;
+            --verde-escuro: #006B32;
+            --verde-claro: #E8F4EC;
+
+            --fundo: #F4F6F4;
+            --branco: #FFFFFF;
+
+            --texto: #252B27;
+            --secundario: #68716B;
+
+            --borda: #DCE3DD;
+            --erro: #B42318;
+
+            --largura: 900px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--fundo);
+            color: var(--texto);
+            line-height: 1.6;
+        }
+
+        input, select, textarea, button {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* ======================================
+           2. CABEÇALHO
+        ====================================== */
+
+        header {
+            background: var(--branco);
+            border-bottom: 4px solid var(--verde);
+            padding: 16px 6%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .identidade {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 52px;
+            height: 52px;
+
+            display: grid;
+            place-items: center;
+
+            background: var(--verde);
+            color: white;
+
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .identidade strong,
+        .identidade small {
+            display: block;
+        }
+
+        .identidade strong {
+            font-size: 14px;
+        }
+
+        .identidade small {
+            color: var(--secundario);
+        }
+
+        .cabecalho-info {
+            color: var(--secundario);
+            font-size: 13px;
+        }
+
+        /* ======================================
+           3. CONTEÚDO
+        ====================================== */
+
+        .container {
+            width: min(92%, var(--largura));
+            margin: 35px auto;
+        }
+
+        .introducao {
+            background: var(--branco);
+            border: 1px solid var(--borda);
+            border-left: 5px solid var(--verde);
+
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .etiqueta {
+            color: var(--verde);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .introducao h1 {
+            font-size: 29px;
+            margin: 8px 0;
+        }
+
+        .introducao p {
+            color: var(--secundario);
+            max-width: 680px;
+        }
+
+        /* ======================================
+           4. INDICADOR DE ETAPAS
+        ====================================== */
+
+        .etapas {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .etapa {
+            flex: 1;
+            height: 5px;
+            background: var(--borda);
+        }
+
+        .etapa.ativa {
+            background: var(--verde);
+        }
+
+        /* ======================================
+           5. BLOCOS
+        ====================================== */
+
+        .bloco {
+            background: var(--branco);
+            border: 1px solid var(--borda);
+            padding: 30px;
+            margin-bottom: 22px;
+        }
+
+        .titulo-bloco {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .numero {
+            min-width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            background: var(--verde-claro);
+            color: var(--verde-escuro);
+
+            font-weight: bold;
+        }
+
+        .titulo-bloco h2 {
+            font-size: 19px;
+        }
+
+        .titulo-bloco p {
+            font-size: 13px;
+            color: var(--secundario);
+        }
+
+        /* ======================================
+           6. CAMPOS
+        ====================================== */
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo:last-child {
+            margin-bottom: 0;
+        }
+
+        .campo > label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .campo input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+        .campo select,
+        .campo textarea {
+            width: 100%;
+            padding: 12px;
+
+            background: white;
+            color: var(--texto);
+
+            border: 1px solid var(--borda);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .campo input:focus,
+        .campo select:focus,
+        .campo textarea:focus {
+            border-color: var(--verde);
+            outline: 2px solid var(--verde-claro);
+        }
+
+        .campo small {
+            display: block;
+            font-size: 12px;
+            color: var(--secundario);
+            margin-top: 5px;
+        }
+
+        select:disabled {
+            background: #EEEEEE;
+            cursor: not-allowed;
+        }
+
+        /* ======================================
+           7. TURMAS
+        ====================================== */
+
+        .turmas {
+            display: flex;
+            gap: 12px;
+        }
+
+        .turma {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 12px 20px;
+            border: 1px solid var(--borda);
+
+            cursor: pointer;
+        }
+
+        .turma:has(input:checked) {
+            background: var(--verde-claro);
+            border-color: var(--verde);
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            accent-color: var(--verde);
+        }
+
+        /* ======================================
+           8. CATEGORIAS
+        ====================================== */
+
+        .categorias {
+            display: grid;
+            gap: 10px;
+        }
+
+        .categoria {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            padding: 17px;
+            border: 1px solid var(--borda);
+
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .categoria:hover {
+            background: var(--verde-claro);
+            border-color: var(--verde);
+        }
+
+        .categoria:has(input:checked) {
+            background: var(--verde-claro);
+            border-color: var(--verde);
+        }
+
+        .categoria input {
+            width: 19px;
+            height: 19px;
+            flex-shrink: 0;
+        }
+
+        .categoria strong,
+        .categoria small {
+            display: block;
+        }
+
+        .categoria strong {
+            font-size: 14px;
+        }
+
+        .categoria small {
+            font-size: 12px;
+            color: var(--secundario);
+        }
+
+        /* ======================================
+           9. PAINÉIS DE AVALIAÇÃO
+        ====================================== */
+
+        .painel {
+            background: #FAFCFA;
+            border: 1px solid var(--borda);
+            border-left: 3px solid var(--verde);
+
+            padding: 24px;
+            margin-top: 12px;
+            margin-bottom: 18px;
+        }
+
+        .painel h3 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .painel > p {
+            color: var(--secundario);
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        /* ======================================
+           10. CHECKBOXES
+        ====================================== */
+
+        .lista-opcoes {
+            display: grid;
+            gap: 9px;
+        }
+
+        .lista-opcoes label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 11px;
+
+            border: 1px solid var(--borda);
+            background: white;
+
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .lista-opcoes label:has(input:checked) {
+            background: var(--verde-claro);
+            border-color: var(--verde);
+        }
+
+        .lista-opcoes input {
+            width: 17px;
+            height: 17px;
+            flex-shrink: 0;
+        }
+
+        .subtitulo {
+            font-weight: bold;
+            font-size: 14px;
+            margin: 20px 0 10px;
+        }
+
+        /* ======================================
+           11. RANGE
+        ====================================== */
+
+        .avaliacao {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--borda);
+        }
+
+        .avaliacao > label {
+            display: block;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .range-legenda {
+            display: flex;
+            justify-content: space-between;
+            color: var(--secundario);
+            font-size: 11px;
+            gap: 10px;
+        }
+
+        .range-controle {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        .range-controle span {
+            font-weight: bold;
+        }
+
+        .range-controle input {
+            flex: 1;
+            accent-color: var(--verde);
+            cursor: pointer;
+        }
+
+        .range-resultado {
+            text-align: right;
+            font-size: 12px;
+            color: var(--secundario);
+        }
+
+        /* ======================================
+           12. TEXTAREA
+        ====================================== */
+
+        textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        /* ======================================
+           13. BOTÕES
+        ====================================== */
+
+        .botoes {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .botao {
+            padding: 13px 22px;
+            border: none;
+            border-radius: 3px;
+
+            font-weight: bold;
+            transition: .2s;
+        }
+
+        .primario {
+            background: var(--verde);
+            color: white;
+        }
+
+        .primario:hover {
+            background: var(--verde-escuro);
+        }
+
+        .secundario {
+            background: #E9EDEA;
+            color: var(--texto);
+        }
+
+        .secundario:hover {
+            background: #DCE3DD;
+        }
+
+        /* ======================================
+           14. REVISÃO
+        ====================================== */
+
+        .resumo {
+            padding: 16px;
+            background: #F5F8F5;
+            border: 1px solid var(--borda);
+            margin-bottom: 12px;
+        }
+
+        .resumo h3 {
+            color: var(--verde-escuro);
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .resumo p {
+            font-size: 13px;
+            margin-bottom: 5px;
+            overflow-wrap: anywhere;
+        }
+
+        .aviso {
+            background: var(--verde-claro);
+            border-left: 4px solid var(--verde);
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+
+        .confirmacao {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .confirmacao input {
+            margin-top: 5px;
+        }
+
+        /* ======================================
+           15. MENSAGENS
+        ====================================== */
+
+        .mensagem {
+            padding: 13px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            border: 1px solid var(--borda);
+            background: white;
+        }
+
+        .mensagem.erro {
+            color: var(--erro);
+            border-color: var(--erro);
+            background: #FFF5F4;
+        }
+
+        .mensagem.sucesso {
+            color: var(--verde-escuro);
+            border-color: var(--verde);
+            background: var(--verde-claro);
+        }
+
+        /* ======================================
+           16. RODAPÉ
+        ====================================== */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #E8EDE9;
+            border-top: 1px solid var(--borda);
+
+            color: var(--secundario);
+            font-size: 12px;
+        }
+
+        /* ======================================
+           17. RESPONSIVIDADE
+        ====================================== */
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 14px 5%;
+            }
+
+            .cabecalho-info {
+                display: none;
+            }
+
+            .container {
+                width: 94%;
+                margin: 20px auto;
+            }
+
+            .bloco {
+                padding: 20px 15px;
+            }
+
+            .introducao {
+                padding: 22px;
+            }
+
+            .introducao h1 {
+                font-size: 24px;
+            }
+
+            .titulo-bloco h2 {
+                font-size: 16px;
+            }
+
+            .painel {
+                padding: 16px;
+            }
+
+            .botoes {
+                flex-direction: column-reverse;
+            }
+
+            .botao {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="identidade">
+        <div class="logo">IFPI</div>
+
+        <div>
+            <strong>Instituto Federal do Piauí</strong>
+            <small>Campus Angical</small>
+        </div>
+    </div>
+
+    <div class="cabecalho-info">
+        Participação estudantil
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <section class="introducao">
+
+        <span class="etiqueta">PARTICIPAÇÃO ESTUDANTIL</span>
+
+        <h1>Conselho de Classe</h1>
+
+        <p>
+            Este espaço foi desenvolvido para ouvir os estudantes
+            sobre o ensino, as dificuldades de aprendizagem,
+            a organização da instituição e a convivência escolar.
+        </p>
+
+    </section>
+
+
+    <!-- INDICADOR DE ETAPAS -->
+
+    <div class="etapas" aria-label="Progresso do formulário">
+        <div class="etapa ativa"></div>
+        <div class="etapa"></div>
+        <div class="etapa"></div>
+        <div class="etapa"></div>
+    </div>
+
+
+    <form id="formulario" novalidate>
+
+        <!-- ======================================
+             ETAPA 1: CADASTRO
+        ======================================= -->
+
+        <section class="bloco etapa-conteudo" data-etapa="0">
+
+            <div class="titulo-bloco">
+                <span class="numero">01</span>
+
+                <div>
+                    <h2>Cadastro do estudante</h2>
+                    <p>Informe seus dados de identificação.</p>
+                </div>
+            </div>
+
+            <div class="campo">
+                <label for="nome">Nome completo</label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    autocomplete="name"
+                    placeholder="Digite seu nome completo"
+                    required
+                >
+            </div>
+
+            <div class="campo">
+                <label for="email">E-mail</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    autocomplete="email"
+                    placeholder="seuemail@exemplo.com"
+                    required
+                >
+
+                <small>
+                    Utilize seu e-mail pessoal ou institucional.
+                </small>
+            </div>
+
+            <div class="campo">
+                <label for="senha">Senha</label>
+
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    minlength="8"
+                    autocomplete="new-password"
+                    placeholder="Mínimo de 8 caracteres"
+                    required
+                >
+            </div>
+
+            <div class="botoes">
+                <button type="button" class="botao primario" data-proximo>
+                    Continuar
+                </button>
+            </div>
+
+        </section>
+
+
+        <!-- ======================================
+             ETAPA 2: TURMA
+        ======================================= -->
+
+        <section class="bloco etapa-conteudo" data-etapa="1" hidden>
+
+            <div class="titulo-bloco">
+                <span class="numero">02</span>
+
+                <div>
+                    <h2>Identificação da turma</h2>
+                    <p>Informe seu curso e sua turma.</p>
+                </div>
+            </div>
+
+            <div class="campo">
+
+                <label for="curso">Curso técnico</label>
+
+                <select id="curso" name="curso" required>
+
+                    <option value="">Selecione seu curso</option>
+
+                    <option value="Informática">Informática</option>
+
+                    <option value="Alimentos">Alimentos</option>
+
+                    <option value="Administração">Administração</option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="ano">Ano escolar</label>
+
+                <select id="ano" name="ano" required disabled>
+
+                    <option value="">Selecione o ano</option>
+
+                    <option value="1º ano">1º ano</option>
+
+                    <option value="2º ano">2º ano</option>
+
+                    <option value="3º ano">3º ano</option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label>Turma</label>
+
+                <div class="turmas">
+
+                    <label class="turma">
+                        <input type="radio" name="turma" value="A" required disabled>
+                        Turma A
+                    </label>
+
+                    <label class="turma" id="turmaB" hidden>
+                        <input type="radio" name="turma" value="B" disabled>
+                        Turma B
+                    </label>
+
+                </div>
+
+                <small>
+                    As turmas disponíveis dependem do curso e do ano selecionado.
+                </small>
+
+            </div>
+
+            <div class="botoes">
+
+                <button type="button" class="botao secundario" data-anterior>
+                    Voltar
+                </button>
+
+                <button type="button" class="botao primario" data-proximo>
+                    Continuar
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================
+             ETAPA 3: SELEÇÃO E AVALIAÇÕES
+        ======================================= -->
+
+        <section class="bloco etapa-conteudo" data-etapa="2" hidden>
+
+            <div class="titulo-bloco">
+                <span class="numero">03</span>
+
+                <div>
+                    <h2>Selecione os assuntos</h2>
+                    <p>
+                        Marque os assuntos que deseja avaliar.
+                        Você pode selecionar vários.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="categorias">
+
+                <label class="categoria">
+                    <input type="checkbox" data-toggle="materias">
+
+                    <span>
+                        <strong>Matérias e disciplinas</strong>
+                        <small>Dificuldades de aprendizagem, conteúdos e avaliações.</small>
+                    </span>
+                </label>
+
+
+                <label class="categoria">
+                    <input type="checkbox" data-toggle="sala">
+
+                    <span>
+                        <strong>Organização da sala</strong>
+                        <small>Estrutura, limpeza, temperatura e convivência.</small>
+                    </span>
+                </label>
+
+
+                <label class="categoria">
+                    <input type="checkbox" data-toggle="professores">
+
+                    <span>
+                        <strong>Organização dos professores</strong>
+                        <small>Planejamento, metodologia e comunicação.</small>
+                    </span>
+                </label>
+
+
+                <label class="categoria">
+                    <input type="checkbox" data-toggle="eventos">
+
+                    <span>
+                        <strong>Eventos e atividades escolares</strong>
+                        <small>Projetos, eventos, atividades culturais e participação.</small>
+                    </span>
+                </label>
+
+
+                <label class="categoria">
+                    <input type="checkbox" data-toggle="gerais">
+
+                    <span>
+                        <strong>Problemas gerais da instituição</strong>
+                        <small>Infraestrutura, serviços e funcionamento.</small>
+                    </span>
+                </label>
+
+            </div>
+
+
+            <!-- ==================================
+                 MATÉRIAS
+            =================================== -->
+
+            <div class="painel" id="materias" hidden>
+
+                <h3>Matérias e disciplinas</h3>
+
+                <p>
+                    Informe a disciplina e as dificuldades que você encontra.
+                </p>
+
+                <div class="campo">
+                    <label for="disciplina">Nome da disciplina</label>
+
+                    <input
+                        type="text"
+                        name="disciplina"
+                        id="disciplina"
+                        placeholder="Ex.: Matemática, Física, Programação..."
+                    >
+                </div>
+
+                <div class="subtitulo">
+                    Quais dificuldades você enfrenta?
+                </div>
+
+                <div class="lista-opcoes">
+
+                    <label>
+                        <input type="checkbox" name="dificuldades" value="Compreensão dos conteúdos" data-exclusive-group="dificuldades">
+                        Dificuldade para compreender os conteúdos
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="dificuldades" value="Ritmo das aulas" data-exclusive-group="dificuldades">
+                        Ritmo acelerado das aulas
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="dificuldades" value="Explicações" data-exclusive-group="dificuldades">
+                        Explicações pouco claras
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="dificuldades" value="Atividades" data-exclusive-group="dificuldades">
+                        Quantidade excessiva de atividades
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="dificuldades" value="Avaliações" data-exclusive-group="dificuldades">
+                        Dificuldade com os métodos de avaliação
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="dificuldades" value="Materiais" data-exclusive-group="dificuldades">
+                        Falta de materiais de estudo
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="dificuldades" value="Nenhuma" data-exclusive="dificuldades">
+                        Não enfrento dificuldades significativas
+                    </label>
+
+                </div>
+
+                <div class="avaliacao">
+
+                    <label for="aprendizagem">
+                        Como você avalia seu aprendizado nesta disciplina?
+                    </label>
+
+                    <div class="range-legenda">
+                        <span>1 — Muito ruim</span>
+                        <span>5 — Muito bom</span>
+                    </div>
+
+                    <div class="range-controle">
+                        <span>1</span>
+
+                        <input
+                            type="range"
+                            id="aprendizagem"
+                            name="aprendizagem"
+                            min="1"
+                            max="5"
+                            value="3"
+                            data-range
+                        >
+
+                        <span>5</span>
+                    </div>
+
+                    <output class="range-resultado" for="aprendizagem">
+                        Selecione uma avaliação
+                    </output>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================
+                 ORGANIZAÇÃO DA SALA
+            =================================== -->
+
+            <div class="painel" id="sala" hidden>
+
+                <h3>Organização da sala</h3>
+
+                <p>
+                    Quais problemas você identifica no ambiente da sala?
+                </p>
+
+                <div class="lista-opcoes">
+
+                    <label>
+                        <input type="checkbox" name="sala" value="Limpeza" data-exclusive-group="sala">
+                        Falta de limpeza e conservação
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="sala" value="Carteiras" data-exclusive-group="sala">
+                        Carteiras danificadas ou insuficientes
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="sala" value="Ventilação" data-exclusive-group="sala">
+                        Problemas de ventilação e temperatura
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="sala" value="Iluminação" data-exclusive-group="sala">
+                        Iluminação inadequada
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="sala" value="Barulho" data-exclusive-group="sala">
+                        Barulho excessivo durante as aulas
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="sala" value="Convivência" data-exclusive-group="sala">
+                        Problemas de convivência
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="sala" value="Nenhum" data-exclusive="sala">
+                        Não identifico problemas significativos
+                    </label>
+
+                </div>
+
+                <div class="avaliacao">
+
+                    <label for="estrutura">
+                        Como você avalia as condições da sala?
+                    </label>
+
+                    <div class="range-legenda">
+                        <span>1 — Muito ruim</span>
+                        <span>5 — Muito bom</span>
+                    </div>
+
+                    <div class="range-controle">
+                        <span>1</span>
+
+                        <input
+                            type="range"
+                            id="estrutura"
+                            name="estrutura"
+                            min="1"
+                            max="5"
+                            value="3"
+                            data-range
+                        >
+
+                        <span>5</span>
+                    </div>
+
+                    <output class="range-resultado" for="estrutura">
+                        Selecione uma avaliação
+                    </output>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================
+                 PROFESSORES
+            =================================== -->
+
+            <div class="painel" id="professores" hidden>
+
+                <h3>Organização dos professores</h3>
+
+                <p>
+                    Quais aspectos poderiam melhorar?
+                </p>
+
+                <div class="lista-opcoes">
+
+                    <label>
+                        <input type="checkbox" name="professores" value="Planejamento" data-exclusive-group="professores">
+                        Melhor planejamento das aulas
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="professores" value="Pontualidade" data-exclusive-group="professores">
+                        Pontualidade
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="professores" value="Comunicação" data-exclusive-group="professores">
+                        Comunicação com os estudantes
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="professores" value="Metodologia" data-exclusive-group="professores">
+                        Diversificação das metodologias de ensino
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="professores" value="Avaliações" data-exclusive-group="professores">
+                        Organização das avaliações e prazos
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="professores" value="Feedback" data-exclusive-group="professores">
+                        Retorno sobre atividades e avaliações
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="professores" value="Nenhum" data-exclusive="professores">
+                        Não identifico problemas significativos
+                    </label>
+
+                </div>
+
+                <div class="avaliacao">
+
+                    <label for="professoresNota">
+                        Como você avalia a organização do ensino?
+                    </label>
+
+                    <div class="range-legenda">
+                        <span>1 — Muito ruim</span>
+                        <span>5 — Muito bom</span>
+                    </div>
+
+                    <div class="range-controle">
+                        <span>1</span>
+
+                        <input
+                            type="range"
+                            id="professoresNota"
+                            name="professoresNota"
+                            min="1"
+                            max="5"
+                            value="3"
+                            data-range
+                        >
+
+                        <span>5</span>
+                    </div>
+
+                    <output class="range-resultado" for="professoresNota">
+                        Selecione uma avaliação
+                    </output>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================
+                 EVENTOS
+            =================================== -->
+
+            <div class="painel" id="eventos" hidden>
+
+                <h3>Eventos e atividades escolares</h3>
+
+                <p>
+                    O que poderia melhorar nas atividades da instituição?
+                </p>
+
+                <div class="lista-opcoes">
+
+                    <label>
+                        <input type="checkbox" name="eventos" value="Divulgação" data-exclusive-group="eventos">
+                        Divulgação dos eventos
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="eventos" value="Organização" data-exclusive-group="eventos">
+                        Organização das atividades
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="eventos" value="Participação" data-exclusive-group="eventos">
+                        Participação dos estudantes
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="eventos" value="Diversidade" data-exclusive-group="eventos">
+                        Variedade de eventos e atividades
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="eventos" value="Horários" data-exclusive-group="eventos">
+                        Horários dos eventos
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="eventos" value="Nenhum" data-exclusive="eventos">
+                        Não identifico problemas significativos
+                    </label>
+
+                </div>
+
+                <div class="avaliacao">
+
+                    <label for="eventosNota">
+                        Como você avalia os eventos da instituição?
+                    </label>
+
+                    <div class="range-legenda">
+                        <span>1 — Muito ruim</span>
+                        <span>5 — Muito bom</span>
+                    </div>
+
+                    <div class="range-controle">
+                        <span>1</span>
+
+                        <input
+                            type="range"
+                            id="eventosNota"
+                            name="eventosNota"
+                            min="1"
+                            max="5"
+                            value="3"
+                            data-range
+                        >
+
+                        <span>5</span>
+                    </div>
+
+                    <output class="range-resultado" for="eventosNota">
+                        Selecione uma avaliação
+                    </output>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================
+                 PROBLEMAS GERAIS
+            =================================== -->
+
+            <div class="painel" id="gerais" hidden>
+
+                <h3>Problemas gerais da instituição</h3>
+
+                <p>
+                    Quais problemas você identifica na instituição?
+                </p>
+
+                <div class="lista-opcoes">
+
+                    <label>
+                        <input type="checkbox" name="gerais" value="Internet" data-exclusive-group="gerais">
+                        Problemas de acesso à internet
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="gerais" value="Laboratórios" data-exclusive-group="gerais">
+                        Condições dos laboratórios
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="gerais" value="Equipamentos" data-exclusive-group="gerais">
+                        Falta ou problemas nos equipamentos
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="gerais" value="Biblioteca" data-exclusive-group="gerais">
+                        Acesso a livros e materiais na biblioteca
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="gerais" value="Comunicação" data-exclusive-group="gerais">
+                        Comunicação entre gestão e estudantes
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="gerais" value="Acessibilidade" data-exclusive-group="gerais">
+                        Acessibilidade nas dependências
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="gerais" value="Nenhum" data-exclusive="gerais">
+                        Não identifico problemas significativos
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- COMENTÁRIO -->
+
+            <div class="campo" style="margin-top:25px">
+
+                <label for="comentario">
+                    Outras opiniões e sugestões
+                </label>
+
+                <textarea
+                    id="comentario"
+                    name="comentario"
+                    rows="5"
+                    maxlength="1500"
+                    placeholder="Existe algo que não foi mencionado e que você gostaria de relatar?"
+                ></textarea>
+
+            </div>
+
+
+            <div class="botoes">
+
+                <button type="button" class="botao secundario" data-anterior>
+                    Voltar
+                </button>
+
+                <button type="button" class="botao primario" id="revisar">
+                    Revisar respostas
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================
+             ETAPA 4: REVISÃO
+        ======================================= -->
+
+        <section class="bloco etapa-conteudo" data-etapa="3" hidden>
+
+            <div class="titulo-bloco">
+
+                <span class="numero">04</span>
+
+                <div>
+                    <h2>Revisão das respostas</h2>
+                    <p>Confira as informações antes de finalizar.</p>
+                </div>
+
+            </div>
+
+            <div id="resumo"></div>
+
+            <div class="aviso">
+                <strong>Importante</strong>
+                <p>
+                    Confira suas respostas. Depois do envio,
+                    a participação deverá ser registrada pelo sistema.
+                </p>
+            </div>
+
+            <label class="confirmacao">
+                <input type="checkbox" id="confirmacao">
+                Confirmo que minhas respostas representam minha opinião.
+            </label>
+
+            <div class="botoes">
+
+                <button type="button" class="botao secundario" data-anterior>
+                    Voltar e corrigir
+                </button>
+
+                <button type="submit" class="botao primario">
+                    Finalizar participação
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULTADO DA DEMONSTRAÇÃO -->
+
+        <section class="bloco etapa-conteudo" data-etapa="4" hidden>
+
+            <div class="titulo-bloco">
+                <span class="numero">✓</span>
+
+                <div>
+                    <h2>Validação concluída!</h2>
+                    <p>O protótipo processou suas respostas localmente.</p>
+                </div>
+            </div>
+
+            <div class="aviso">
+                Este é apenas um teste de frontend. Nenhuma conta
+                foi criada e nenhuma avaliação foi enviada ou salva
+                em um banco de dados.
+            </div>
+
+            <button type="button" class="botao primario" id="reiniciar">
+                Reiniciar demonstração
+            </button>
+
+        </section>
+
+    </form>
+
+</main>
+
+
+<footer>
+    <p>Instituto Federal do Piauí — Campus Angical</p>
+    <p>Conselho de Classe | 2026</p>
+</footer>
+
+
+<script>
+
+    /* ==========================================
+       1. ELEMENTOS E ESTADO
+    ========================================== */
+
+    const formulario = document.querySelector("#formulario");
+
+    const etapas = [
+        ...document.querySelectorAll(".etapa-conteudo")
+    ];
+
+    const indicadores = [
+        ...document.querySelectorAll(".etapa")
+    ];
+
+    let etapaAtual = 0;
+
+
+    /* ==========================================
+       2. NAVEGAÇÃO ENTRE ETAPAS
+    ========================================== */
+
+    function mostrarEtapa(numero) {
+
+        etapaAtual = numero;
+
+        etapas.forEach((etapa, indice) => {
+            etapa.hidden = indice !== numero;
+        });
+
+        indicadores.forEach((indicador, indice) => {
+            indicador.classList.toggle(
+                "ativa",
+                indice <= Math.min(numero, 3)
+            );
+        });
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* ==========================================
+       3. BOTÕES DE AVANÇAR E VOLTAR
+    ========================================== */
+
+    document.querySelectorAll("[data-proximo]").forEach((botao) => {
+
+        botao.addEventListener("click", () => {
+
+            const campos = etapas[etapaAtual].querySelectorAll(
+                "input:not([type=checkbox]):not([type=radio]), select"
+            );
+
+            for (const campo of campos) {
+
+                if (!campo.checkValidity()) {
+
+                    campo.reportValidity();
+                    return;
+
+                }
+
+            }
+
+            mostrarEtapa(etapaAtual + 1);
+
+        });
+
+    });
+
+
+    document.querySelectorAll("[data-anterior]").forEach((botao) => {
+
+        botao.addEventListener("click", () => {
+
+            mostrarEtapa(etapaAtual - 1);
+
+        });
+
+    });
+
+
+    /* ==========================================
+       4. CONFIGURAÇÃO DAS TURMAS
+    ========================================== */
+
+    // Configuração provisória.
+    // Ajuste conforme as turmas realmente existentes.
+
+    const configuracaoTurmas = {
+
+        "Informática": {
+            "1º ano": ["A"],
+            "2º ano": ["A"],
+            "3º ano": ["A", "B"]
+        },
+
+        "Alimentos": {
+            "1º ano": ["A"],
+            "2º ano": ["A"],
+            "3º ano": ["A", "B"]
+        },
+
+        "Administração": {
+            "1º ano": ["A"],
+            "2º ano": ["A"],
+            "3º ano": ["A", "B"]
+        }
+
+    };
+
+    const curso = document.querySelector("#curso");
+    const ano = document.querySelector("#ano");
+
+    const turmaA = document.querySelector(
+        'input[name="turma"][value="A"]'
+    );
+
+    const turmaB = document.querySelector(
+        'input[name="turma"][value="B"]'
+    );
+
+    const elementoTurmaB = document.querySelector("#turmaB");
+
+
+    curso.addEventListener("change", () => {
+
+        ano.disabled = !curso.value;
+
+        ano.value = "";
+
+        atualizarTurmas();
+
+    });
+
+
+    ano.addEventListener("change", atualizarTurmas);
+
+
+    function atualizarTurmas() {
+
+        turmaA.checked = false;
+        turmaB.checked = false;
+
+        turmaA.disabled = true;
+        turmaB.disabled = true;
+
+        elementoTurmaB.hidden = true;
+
+        if (!curso.value || !ano.value) {
+            return;
+        }
+
+        const turmas =
+            configuracaoTurmas[curso.value]?.[ano.value] || [];
+
+        if (turmas.includes("A")) {
+            turmaA.disabled = false;
+        }
+
+        if (turmas.includes("B")) {
+
+            turmaB.disabled = false;
+            elementoTurmaB.hidden = false;
+
+        }
+
+    }
+
+
+    /* ==========================================
+       5. PAINÉIS DINÂMICOS
+    ========================================== */
+
+    const categorias = document.querySelectorAll("[data-toggle]");
+
+    categorias.forEach((checkbox) => {
+
+        const painel = document.getElementById(
+            checkbox.dataset.toggle
+        );
+
+        function atualizarPainel() {
+
+            painel.hidden = !checkbox.checked;
+
+            painel.querySelectorAll(
+                "input, textarea, select"
+            ).forEach((campo) => {
+
+                campo.disabled = !checkbox.checked;
+
+            });
+
+        }
+
+        checkbox.addEventListener("change", atualizarPainel);
+
+        atualizarPainel();
+
+    });
+
+
+    /* ==========================================
+       6. CHECKBOXES EXCLUSIVOS
+    ========================================== */
+
+    document.querySelectorAll("[data-exclusive]").forEach((nenhum) => {
+
+        const grupo = nenhum.dataset.exclusive;
+
+        const outros = document.querySelectorAll(
+            `[data-exclusive-group="${grupo}"]`
+        );
+
+        nenhum.addEventListener("change", () => {
+
+            if (nenhum.checked) {
+
+                outros.forEach((item) => {
+                    item.checked = false;
+                });
+
+            }
+
+        });
+
+        outros.forEach((item) => {
+
+            item.addEventListener("change", () => {
+
+                if (item.checked) {
+                    nenhum.checked = false;
+                }
+
+            });
+
+        });
+
+    });
+
+
+    /* ==========================================
+       7. CONTROLE DOS RANGES
+    ========================================== */
+
+    document.querySelectorAll("[data-range]").forEach((range) => {
+
+        const output = document.querySelector(
+            `output[for="${range.id}"]`
+        );
+
+        range.dataset.respondido = "false";
+
+        range.addEventListener("input", () => {
+
+            range.dataset.respondido = "true";
+
+            output.textContent =
+                `${range.value} de 5`;
+
+        });
+
+    });
+
+
+    /* ==========================================
+       8. REVISÃO DAS RESPOSTAS
+    ========================================== */
+
+    const resumo = document.querySelector("#resumo");
+
+    function criarResumo(titulo, linhas) {
+
+        const bloco = document.createElement("div");
+        bloco.className = "resumo";
+
+        const h3 = document.createElement("h3");
+        h3.textContent = titulo;
+
+        bloco.appendChild(h3);
+
+        linhas.forEach((linha) => {
+
+            const p = document.createElement("p");
+            p.textContent = linha;
+
+            bloco.appendChild(p);
+
+        });
+
+        resumo.appendChild(bloco);
+
+    }
+
+
+    function obterMarcados(painel) {
+
+        return [
+            ...painel.querySelectorAll(
+                'input[type="checkbox"]:checked'
+            )
+        ].map((item) => item.value);
+
+    }
+
+
+    function prepararRevisao() {
+
+        resumo.replaceChildren();
+
+        const dados = new FormData(formulario);
+
+        criarResumo("Identificação", [
+
+            `Nome: ${dados.get("nome")}`,
+            `E-mail: ${dados.get("email")}`
+
+        ]);
+
+        criarResumo("Turma", [
+
+            `Curso: ${dados.get("curso")}`,
+            `Ano: ${dados.get("ano")}`,
+            `Turma: ${dados.get("turma")}`
+
+        ]);
+
+
+        categorias.forEach((checkbox) => {
+
+            if (!checkbox.checked) return;
+
+            const painel = document.getElementById(
+                checkbox.dataset.toggle
+            );
+
+            const titulo = checkbox.closest(".categoria")
+                .querySelector("strong").textContent;
+
+            const linhas = [];
+
+            const marcados = obterMarcados(painel);
+
+            if (marcados.length) {
+                linhas.push(`Opções: ${marcados.join(", ")}`);
+            }
+
+            const ranges = painel.querySelectorAll("[data-range]");
+
+            ranges.forEach((range) => {
+
+                if (range.dataset.respondido === "true") {
+
+                    linhas.push(
+                        `${range.labels[0].textContent}: ${range.value}/5`
+                    );
+
+                }
+
+            });
+
+            const disciplina = painel.querySelector("#disciplina");
+
+            if (disciplina?.value) {
+                linhas.push(`Disciplina: ${disciplina.value}`);
+            }
+
+            criarResumo(titulo, linhas);
+
+        });
+
+
+        const comentario = dados.get("comentario");
+
+        if (comentario) {
+            criarResumo("Comentário adicional", [comentario]);
+        }
+
+    }
+
+
+    /* ==========================================
+       9. VALIDAR CATEGORIAS
+    ========================================== */
+
+    function validarCategorias() {
+
+        const selecionadas = [
+            ...categorias
+        ].filter((checkbox) => checkbox.checked);
+
+        if (selecionadas.length === 0) {
+
+            alert("Selecione pelo menos um assunto para avaliar.");
+
+            return false;
+
+        }
+
+        for (const categoria of selecionadas) {
+
+            const painel = document.getElementById(
+                categoria.dataset.toggle
+            );
+
+            const opcoes = painel.querySelectorAll(
+                'input[type="checkbox"]:checked'
+            );
+
+            if (opcoes.length === 0) {
+
+                alert(
+                    "Selecione pelo menos uma opção em: " +
+                    categoria.closest(".categoria")
+                        .querySelector("strong").textContent
+                );
+
+                categoria.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+                return false;
+
+            }
+
+            const ranges = painel.querySelectorAll("[data-range]");
+
+            for (const range of ranges) {
+
+                if (range.dataset.respondido !== "true") {
+
+                    alert(
+                        "Responda à avaliação de escala em: " +
+                        categoria.closest(".categoria")
+                            .querySelector("strong").textContent
+                    );
+
+                    range.focus();
+
+                    return false;
+
+                }
+
+            }
+
+        }
+
+        return true;
+
+    }
+
+
+    /* ==========================================
+       10. ABRIR REVISÃO
+    ========================================== */
+
+    document.querySelector("#revisar").addEventListener(
+        "click",
+        () => {
+
+            if (!validarCategorias()) return;
+
+            prepararRevisao();
+
+            mostrarEtapa(3);
+
+        }
+    );
+
+
+    /* ==========================================
+       11. FINALIZAÇÃO DE DEMONSTRAÇÃO
+    ========================================== */
+
+    formulario.addEventListener("submit", (event) => {
+
+        event.preventDefault();
+
+        const confirmacao = document.querySelector("#confirmacao");
+
+        if (!confirmacao.checked) {
+
+            alert("Confirme suas respostas antes de finalizar.");
+
+            return;
+
+        }
+
+        // Dados de identificação não são incluídos
+        // no objeto de avaliações.
+
+        const identificacao = {
+            nome: document.querySelector("#nome").value,
+            email: document.querySelector("#email").value,
+            curso: curso.value,
+            ano: ano.value,
+            turma: formulario.querySelector(
+                'input[name="turma"]:checked'
+            )?.value
+        };
+
+        const avaliacoes = {};
+
+        categorias.forEach((checkbox) => {
+
+            if (!checkbox.checked) return;
+
+            const id = checkbox.dataset.toggle;
+            const painel = document.getElementById(id);
+
+            avaliacoes[id] = {
+                opcoes: obterMarcados(painel),
+                disciplinas: painel.querySelector("#disciplina")?.value || "",
+                escalas: {}
+            };
+
+            painel.querySelectorAll("[data-range]").forEach((range) => {
+
+                avaliacoes[id].escalas[range.name] =
+                    Number(range.value);
+
+            });
+
+        });
+
+        avaliacoes.comentario =
+            document.querySelector("#comentario").value;
+
+        // Demonstração: não envia para servidor.
+
+        console.log("Identificação:", identificacao);
+        console.log("Avaliações:", avaliacoes);
+
+        mostrarEtapa(4);
+
+    });
+
+
+    /* ==========================================
+       12. REINICIAR
+    ========================================== */
+
+    document.querySelector("#reiniciar").addEventListener(
+        "click",
+        () => {
+
+            formulario.reset();
+
+            categorias.forEach((checkbox) => {
+
+                const painel = document.getElementById(
+                    checkbox.dataset.toggle
+                );
+
+                painel.hidden = true;
+
+                painel.querySelectorAll(
+                    "input, textarea, select"
+                ).forEach((campo) => {
+                    campo.disabled = true;
+                });
+
+            });
+
+            document.querySelectorAll("[data-range]").forEach((range) => {
+
+                range.dataset.respondido = "false";
+
+                const output = document.querySelector(
+                    `output[for="${range.id}"]`
+                );
+
+                output.textContent = "Selecione uma avaliação";
+
+            });
+
+            curso.value = "";
+            ano.value = "";
+            ano.disabled = true;
+
+            atualizarTurmas();
+
+            mostrarEtapa(0);
+
+        }
+    );
+
+
+    /* ==========================================
+       13. INICIALIZAÇÃO
+    ========================================== */
+
+    atualizarTurmas();
+    mostrarEtapa(0);
+
+</script>
+
+</body>
+</html>
